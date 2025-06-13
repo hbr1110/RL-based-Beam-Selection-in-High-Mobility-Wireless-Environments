@@ -21,17 +21,29 @@
 
 ## 功能簡介
 - 資料集產生
+
 支援多組速度/SNR/CSI noise 設定
+
 欄位說明（user_id, time_idx, sinr_b1N, label, phi_main, aod_path1P）
+
 - RL 環境
+
 OpenAI Gym API
+
 支援 CSI noise，可模擬 channel estimation 不完美
+
 - Baseline/Random/DQN 三種 Agent
+
 Baseline：每步選 SINR 最大（理論上限）
+
 Random：隨機選擇
+
 DQN：深度 Q 學習
+
 - 自動 sweep 與批次比較
+
 train_all.py 批次訓練所有資料集，自動統整結果
+
 notebooks/analysis.ipynb 產出對照圖、表格
 
 ## 快速開始

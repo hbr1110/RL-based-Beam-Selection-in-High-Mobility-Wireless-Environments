@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+*.pyo
+.venv/
+.DS_Store
+logs/
+models/
+results/
+data/*.csv
+!data/sample.csv  

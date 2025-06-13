@@ -66,9 +66,9 @@ python -m trainers.train_dqn
 python -m trainers.train_compare
 
 # 4. 可視化結果
-TensorBoard：訓練過程監控
+# TensorBoard：訓練過程監控
 tensorboard --logdir logs/dqn_tb
-Jupyter Notebook：統計/畫圖/深入比較
+# Jupyter Notebook：統計/畫圖/深入比較
 jupyter notebook notebooks/analysis.ipynb
 
 

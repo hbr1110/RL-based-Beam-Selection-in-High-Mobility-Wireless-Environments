@@ -1,10 +1,35 @@
+# Python cache & venv
 __pycache__/
 *.pyc
 *.pyo
 .venv/
 .DS_Store
+
+# VS Code/編輯器
+.vscode/
+.idea/
+
+# 訓練/測試產生的臨時檔案
 logs/
 models/
 results/
+*.log
+
+# 資料
 data/*.csv
-!data/sample.csv  
+!data/sample.csv   # 留一份 sample 方便 clone 後能跑
+
+# MATLAB臨時
+*.asv
+*.mat
+
+# Jupyter Notebook checkpoint
+.ipynb_checkpoints/
+
+# 各種圖檔（你只放 demo 結果就好）
+*.png
+*.jpg
+*.jpeg
+
+# 參考論文、私密資料
+reference thesis/

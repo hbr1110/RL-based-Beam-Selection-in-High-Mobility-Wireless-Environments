@@ -1,44 +1,44 @@
-# RL-based Beam Selection in High-Mobility Wireless Environments
+# RL-based Beam Selection in High-Mobility Massive MIMO
 
-本專案針對**高速移動場景**的無線通訊系統，實作並比較傳統基準法（Baseline）、隨機選擇（Random）以及深度強化學習（DQN）等 **beam selection** 策略，探討**不同移動速度、SNR、CSI 不完美（估測雜訊）等現實條件下之效能表現**。支援資料產生、模型訓練、批次 sweep、可視化分析。
+本專案聚焦於**高速移動場景下的 Massive MIMO Beam Selection**，比較傳統基準法（Baseline）、深度強化學習（DQN）等方法，探討不同移動速度、SNR、CSI 估測雜訊等現實通道條件下的波束選擇表現。專案涵蓋**通道建模資料產生、RL 訓練、策略評測與可視化分析**。
 
 ---
 
 ## 🌟 成果展示 | Results Visualization
 
 <div align="center">
-
-| 完美 CSI（無估測雜訊） | 不完美 CSI（csi_noise_std=0.2） |
-|:---------------------:|:----------------------------:|
-| ![](noise_0.0.png)    | ![](noise_0.2.png)           |
-
+<img src="result.png" width="700"/>
 </div>
 
-- **左圖**：完美CSI下，Baseline（最大SINR）接近理論上限，DQN 可達高水準，Random 很差  
-- **右圖**：CSI帶有雜訊時（實際系統常見），DQN 可學習出強健策略，明顯優於 Random，且略優於 Baseline
+- 各子圖分別顯示不同 SNR（橫排）、速度（縱排）組合下，Baseline 與 DQN 在 CSI noise 為 0/0.2 時的準確率。
+- **觀察重點**：
+  - 無 CSI noise 時，Baseline 接近理論上限，DQN 亦能達到極高準確率。
+  - 有 CSI noise 時，DQN 仍能學習出強健策略，優於隨機，與 Baseline 間的差距需視通道模型與 RL 設計。
+  - 不同 SNR、速度、CSI noise 下可直接橫向比較各方法魯棒性。
 
 ---
 
-## 🚀 特色亮點 Features
+## 🚀 專案特色 Features
 
-- **MATLAB 通道模擬**：多種速度/SNR，自動產生資料集
-- **自動化 RL 訓練與 sweep**：一鍵多組環境訓練，模型結果自動保存
-- **完美/不完美 CSI 測試**：可設定通道估測雜訊（CSI noise）
-- **多策略比較**：Baseline（理論上限）、Random、DQN Agent
-- **TensorBoard/Notebook 可視化**：訓練過程與結果一目了然
-- **專案模組化設計**：方便擴充先進 RL（LSTM/PPO/Transformer）
+- **MATLAB 產生物理真實資料集**：多用戶、多天線、多流、通道老化（Channel Aging）、CSI 雜訊等。
+- **RL 環境自動 sweep**：Python (Gym) 封裝，支持多組參數自動訓練。
+- **多種 Beam Selection 策略比較**：Baseline (Max-SINR)、DQN、（可擴充 Random, PPO, LSTM…）。
+- **結果自動匯整、pandas/seaborn 視覺化**：一鍵匯出 summary.csv，方便統計與繪圖。
+- **模組化架構**：便於增減資料集/方法/Reward function。
 
 ---
 
 ## 📁 專案結構 Project Structure
 
 ```text
-matlab/        # 通道/beam 資料集產生（MATLAB script）
-utils/         # 資料讀取、驗證、常用工具
-env/           # RL 環境接口（OpenAI Gym 風格）
-agents/        # 各類策略（Baseline/Random/DQN）
+matlab/        # 通道建模/資料集產生 (MATLAB)
+data/          # 已產生資料集（csv，含多參數組合）
+env/           # Beam Selection RL 環境（Python, Gym API）
+agents/        # 策略實作（Baseline/DQN/Random…）
 trainers/      # 訓練與評測腳本
-notebooks/     # Jupyter 分析與繪圖
+results/       # Sweep 統計結果 summary
+notebooks/     # 分析/繪圖 (Jupyter)
+utils/         # 工具/資料讀取
 ```
 
 ---

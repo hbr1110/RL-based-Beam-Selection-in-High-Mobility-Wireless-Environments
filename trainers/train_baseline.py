@@ -32,12 +32,22 @@ def evaluate_agent(env, agent, num_episodes=10):
 if __name__ == "__main__":
     ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     DATA_DIR = os.path.join(ROOT, 'data')
-    all_csv = sorted(glob.glob(os.path.join(DATA_DIR, 'beam_dataset_speed*_snr*.csv')))
+    all_csv = sorted(glob.glob(os.path.join(DATA_DIR, 'beam_dataset_K*.csv')))
 
     print("\n==== Baseline Agent 在所有資料集的表現 ====")
     for f in all_csv:
         print(f"\n=== {os.path.basename(f)} ===")
-        env = BeamSelectionEnv(f, reward_type='accuracy', max_steps=None, shuffle=True)
-        agent = BaselineAgent(env.num_beams)
-        r, acc = evaluate_agent(env, agent, num_episodes=5)
-        print(f"平均 reward: {r:.1f}, 平均 accuracy: {acc:.3f}")
+        for user_idx in [1, 2, 3, 4]:  # 依資料集 user 數而定
+            env = BeamSelectionEnv(
+                f,
+                user_idx=user_idx,
+                stream_idx=1,  # 若有多 stream 可for迴圈
+                reward_type='relative',
+                max_steps=None,
+                shuffle=True,
+                csi_noise_std=0.2,
+                delay_steps=100
+            )
+            agent = BaselineAgent(env.num_beams)
+            r, acc = evaluate_agent(env, agent, num_episodes=5)
+            print(f"[user{user_idx}] relative reward: {r:.1f}, 平均 accuracy: {acc:.3f}")

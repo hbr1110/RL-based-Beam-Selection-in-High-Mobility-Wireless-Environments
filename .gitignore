@@ -31,8 +31,8 @@ data/*.csv
 *.jpg
 *.jpeg
 # 範例圖檔
-!noise_0.0.png
-!noise_0.2.png
+!result.png
+
 
 # 參考論文、私密資料
 reference thesis/

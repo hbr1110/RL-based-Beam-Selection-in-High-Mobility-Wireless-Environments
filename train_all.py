@@ -82,6 +82,7 @@ def parse_multiuser_csv_columns(csv_file):
     users = sorted(users)
     return users, beams_per_stream
 
+history_steps = 3  # 用過去3步驟的CSI資料來預測 
 
 summary = []
 for delay in [1]:
@@ -98,7 +99,8 @@ for delay in [1]:
                     reward_type=reward_type,
                     shuffle=True,
                     csi_noise_std=csi_noise_std,
-                    delay_steps=delay
+                    delay_steps=delay,
+                    history_steps=history_steps
                 )
 
                 # Baseline/Random agent

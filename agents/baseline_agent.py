@@ -7,4 +7,6 @@ class BaselineAgent:
         self.num_beams = num_beams
 
     def select_action(self, state):
-        return int(np.argmax(state))  # always select max-SINR beam
+        # state 可能有多段 history，這裡永遠抓最後一段
+        last_sinr = state[-self.num_beams:]
+        return int(np.argmax(last_sinr))
